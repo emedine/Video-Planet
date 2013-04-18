@@ -23,12 +23,19 @@ public class Main extends PApplet{
 	float velocityY = 0;
 	float globeRadius = 600;
 	float pushBack = 0;
+	
+//// PARAMS ///////////
+	float prad = 277;
 
 	float[] cx, cz, sphereX, sphereY, sphereZ;
 	float sinLUT[];
 	float cosLUT[];
 	float SINCOS_PRECISION = 0.5f;
 	int SINCOS_LENGTH = (int)(360.0f / SINCOS_PRECISION);
+	
+	
+	
+///// LOCATION DATA //////////////
 
 	double[][] coords = {
 	{47.479246,19.158606},
@@ -115,24 +122,35 @@ public class Main extends PApplet{
 	
 	/////////   end video functions   ///////
 	////////////////////////////////////
+	
+	///////////// start line that sticks out //////////////
 	public void myMark(float x, float y, float z, float len){
 	  // scale(len,len,len);
 	  // translate(x,y,z);
 	  // sphere(len);
 	  line(x,y,z,x+len,y,z);
+	  
 	}
-	float prad = 277;
+	
+	//// end marker ////////////
+
 
 	public void renderGlobe(){
+		
 	  pushMatrix();
 	  translate(width/2.0f, height/2.0f, pushBack);
+	  
+	  /*
 	  pushMatrix();
 	  noFill();
 	  stroke(255,200);
 	  strokeWeight(2);
 	  smooth();
+	  
 	  popMatrix();
-	  lights();    
+	  */
+	  lights();   
+	  
 	  pushMatrix();
 	  rotateX( radians(-rotationX) );  
 	  rotateY( radians(270 - rotationY) );
@@ -169,6 +187,8 @@ public class Main extends PApplet{
 	  }
 
 	//// this draws lines
+	  
+	  /*
 	  stroke(255,0,0);
 	  noFill();
 	  float anim2IdxF = (1-mRatio) * coords2.length;
@@ -216,13 +236,12 @@ public class Main extends PApplet{
 	      }
 	      endShape();
 	      stroke(255,0,0);
-	/*      bezier(x,y,z, 
-	            x+x/10,y+y/10,z+z/10, 
-	            x2+x2/10,y2+y2/10,z2+z2/10, 
-	            x2,y2,z2);
-	*/
+			     
+			// bezier(x,y,z, x+x/10,y+y/10,z+z/10, x2+x2/10,y2+y2/10,z2+z2/10,x2,y2,z2);
+			 
 	      ++n;
 	  }
+	  */
 
 
 	  // println(animIdx + " " + n + " rendered");
@@ -242,11 +261,12 @@ public class Main extends PApplet{
 	  
 	  // Implements mouse control (interaction will be inverse when sphere is  upside down)
 	  if(mousePressed){
-	    velocityX += (mouseY-pmouseY) * 0.01;
-	    velocityY -= (mouseX-pmouseX) * 0.01;
+	    velocityX += (mouseY-pmouseY) * 0.07;
+	    velocityY -= (mouseX-pmouseX) * 0.07;
 	  }
 	}
 
+	////// INIT SPHERE ////////////
 	public void initializeSphere(int res){
 	  sinLUT = new float[SINCOS_LENGTH];
 	  cosLUT = new float[SINCOS_LENGTH];
@@ -348,7 +368,10 @@ public class Main extends PApplet{
 	  
 	}	
 	
+	//////////////////////
 	////////keyboard input
+	//////////////////////
+	
 	public void keyPressed() {
 		if (key == '-') {
 			
